@@ -3,14 +3,15 @@ import {
   IsCreditCard,
   IsDateString,
   IsNotEmpty,
+  IsNumber,
   IsString,
 } from 'class-validator';
 
 export class CreateTransactionsDto {
   @ApiProperty()
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  value: string;
+  value: number;
 
   @ApiProperty()
   @IsString()
