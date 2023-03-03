@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
+import { PayableRepository } from 'src/modules/payable/repository/PayableRepository';
 import { PayableRepositoryModule } from 'src/modules/payable/repository/PayableRepository.module';
-import { CreatePayableService } from 'src/modules/payable/services/create-payable/CreatePayable.service';
 import { TransactionRepostitory } from '../../repository/TransactionRepository';
 import { CreateTransactionController } from './CreateTransaction.controller';
 import { CreateTransactionService } from './CreateTransaction.service';
@@ -8,7 +8,7 @@ import { CreateTransactionService } from './CreateTransaction.service';
 @Module({
   providers: [
     CreateTransactionService,
-    CreatePayableService,
+    PayableRepository,
     TransactionRepostitory,
   ],
   controllers: [CreateTransactionController],

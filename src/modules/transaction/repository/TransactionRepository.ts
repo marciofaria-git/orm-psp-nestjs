@@ -3,7 +3,7 @@ import { CreatePaybleDto } from '../../payable/dto/create-payable.dto';
 import { PayableStatus } from '../../payable/enum/PayableStatus.enum';
 import { PayableRepository } from '../../payable/repository/PayableRepository';
 
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../../../../src/prisma/prisma.service';
 import { CreateTransactionsDto } from '../dto';
 
 import { ITransaction } from '../interfaces/transcation.interface';
@@ -25,10 +25,14 @@ export class TransactionRepostitory implements ITransactionRepository {
   async createTransaction(
     createTransactionDto: CreateTransactionsDto,
   ): Promise<ITransaction> {
-    const createTranscation = await this.prisma.transaction.create({
+    const { cardNumber } = createTransactionDto;
+    const lastFour = cardNumber.slice(cardNumber.length - 4);
+    createTransactionDto.cardNumber = lastFour;
+    const createTransaction = await this.prisma.transaction.create({
       data: createTransactionDto,
     });
-    const transactionDate = createTranscation.createdAt;
+
+    const transactionDate = createTransaction.createdAt;
     const paymentDate = new Date();
     paymentDate.setDate(transactionDate.getDate() + 30);
 
@@ -36,7 +40,7 @@ export class TransactionRepostitory implements ITransactionRepository {
       return value - value * (fee / 100);
     };
 
-    const liquidValue = taxCalculate(createTranscation.value, 5);
+    const liquidValue = taxCalculate(createTransaction.value, 5);
 
     const payableDto: CreatePaybleDto = {
       status: PayableStatus.PENDING,
@@ -44,10 +48,10 @@ export class TransactionRepostitory implements ITransactionRepository {
       liquidValue: liquidValue,
     };
 
-    const transactionId = createTranscation.id;
+    const transactionId = createTransaction.id;
     this.payableRepository.createPayable(transactionId, payableDto);
 
-    return createTranscation;
+    return createTransaction;
   }
 
   async getTransactionById(id: number): Promise<ITransaction> {
