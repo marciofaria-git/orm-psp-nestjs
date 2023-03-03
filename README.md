@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
 ## Descriçao
 
 Payment Service Provider (PSP)
@@ -72,6 +68,8 @@ $ npm run start
 A aplicaçao estara funcionando na porta 3000 <br/>
 -PORTA = 3000 <br/>
 -IP = http://localhost:3000
+
+Observaçao: O serviço de pagamento dos pagaveis esta programado para ser executado a cada 45 segundos apos a aplicaçao iniciar
 
 ### Rotas da aplicaçao
 
