@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
+import { BalancePaidModule } from './services/balance-paid/BalancePaid.module';
 
-import { BalanceFinishedModule } from './services/balance-finished/BalanceFinished.module';
 import { BalancePendingModule } from './services/balance-pending/BalancePending.module';
 
 @Module({
-  imports: [BalanceFinishedModule, BalancePendingModule],
+  imports: [BalancePaidModule, BalancePendingModule],
 })
 export class BalanceModule {}

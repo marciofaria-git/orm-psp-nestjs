@@ -1,6 +1,7 @@
 import { TestingModule, Test } from '@nestjs/testing';
-import { BalanceRepository } from '../../../../../../src/modules/balance/repository/BalanceRepository';
-import { BalanceFinishedService } from '../BalanceFinished.service';
+import { BalanceRepository } from '../../../repository/BalanceRepository';
+import { BalancePaidService } from '../BalancePaid.service';
+
 import {
   mockBlanceFinishedResolveValue,
   mockBlanceFinishedReturnValue,
@@ -8,16 +9,16 @@ import {
 
 describe('BalanceFinishedService ', () => {
   let balanceRepository: BalanceRepository;
-  let balanceFinishedService: BalanceFinishedService;
+  let balanceFinishedService: BalancePaidService;
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        BalanceFinishedService,
+        BalancePaidService,
         {
           provide: BalanceRepository,
           useValue: {
-            getBalanceFinished: jest
+            getBalancePaid: jest
               .fn()
               .mockResolvedValue(mockBlanceFinishedResolveValue),
           },
@@ -25,9 +26,8 @@ describe('BalanceFinishedService ', () => {
       ],
     }).compile();
 
-    balanceFinishedService = moduleRef.get<BalanceFinishedService>(
-      BalanceFinishedService,
-    );
+    balanceFinishedService =
+      moduleRef.get<BalancePaidService>(BalancePaidService);
 
     balanceRepository = moduleRef.get<BalanceRepository>(BalanceRepository);
   });
@@ -41,7 +41,7 @@ describe('BalanceFinishedService ', () => {
     const response = await balanceFinishedService.getBalanceAvailable();
 
     const balanceFinished = jest
-      .spyOn(balanceRepository, 'getBalanceFinished')
+      .spyOn(balanceRepository, 'getBalancePaid')
       .mockResolvedValue(mockBlanceFinishedReturnValue);
     expect(balanceFinished).toHaveBeenCalledTimes(1);
     expect(response).toEqual(mockBlanceFinishedReturnValue);

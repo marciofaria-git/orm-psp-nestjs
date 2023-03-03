@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { PayableStatus } from 'src/modules/payable/enum/PayableStatus.enum';
 import { PrismaService } from '../../src/prisma/prisma.service';
+import { CronTimes } from './enum/CronTimes.enum';
 
 @Injectable()
 export class CronService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  @Cron('*/10 * * * * *')
+  @Cron(CronTimes.EVERY_MINUTE_ON_45_SECOND)
   async checkPaymentStatus() {
     const getPayables = await this.prisma.payable.findMany();
 

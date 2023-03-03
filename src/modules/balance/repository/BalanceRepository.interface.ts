@@ -15,5 +15,5 @@ export interface IBalanceRepository {
 
   getBalancePending(): Promise<IBalance[]>;
 
-  getBalanceFinished(): Promise<IBalance[]>;
+  getBalancePaid(): Promise<IBalance[]>;
 }

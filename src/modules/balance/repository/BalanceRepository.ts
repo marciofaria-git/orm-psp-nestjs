@@ -16,7 +16,7 @@ export class BalanceRepository implements IBalanceRepository {
     return balancePending;
   }
 
-  getBalanceFinished(): Promise<IBalance[]> {
+  getBalancePaid(): Promise<IBalance[]> {
     const balanceAvailable = this.prisma.payable.findMany({
       where: {
         status: PayableStatus.PAID,

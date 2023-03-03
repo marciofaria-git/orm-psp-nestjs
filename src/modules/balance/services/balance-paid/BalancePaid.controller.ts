@@ -1,11 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { BalanceFinishedService } from './BalanceFinished.service';
+import { BalancePaidService } from './BalancePaid.service';
 
 @ApiTags('Balance')
-@Controller('balance-finished')
+@Controller('balance-paid')
 export class BalanceFinishedController {
-  constructor(private balanceFinishedService: BalanceFinishedService) {}
+  constructor(private balanceFinishedService: BalancePaidService) {}
 
   @Get()
   getBalanceAvailable() {

@@ -7,7 +7,7 @@ const transactionsData = [
     id: 1,
     value: 100,
     descriptions: 'smart band',
-    cardNumber: '222-222-222-222',
+    cardNumber: '2223-2222-2422-2622',
     cardNameHolder: 'Marcio Mateus Faria De Souza',
     cardExpirationDate: '122025',
     cardVerificationCode: '123',
@@ -17,7 +17,7 @@ const transactionsData = [
     id: 2,
     value: 50,
     descriptions: 'camisa polo',
-    cardNumber: '111-111-111-111',
+    cardNumber: '1113-1191-1311-1811',
     cardNameHolder: 'Antonio Rodrigues Carlo',
     cardExpirationDate: '112024',
     cardVerificationCode: '231',
@@ -27,7 +27,7 @@ const transactionsData = [
     id: 3,
     value: 150,
     descriptions: 'consulta medica',
-    cardNumber: '333-111-121-412',
+    cardNumber: '3533-1611-1291-4712',
     cardNameHolder: 'Sara Fagundes Quinoa',
     cardExpirationDate: '052026',
     cardVerificationCode: '972',
@@ -37,7 +37,7 @@ const transactionsData = [
     id: 4,
     value: 70,
     descriptions: 'mouse sem fio',
-    cardNumber: '222-312-221-789',
+    cardNumber: '2222-3182-2241-7859',
     cardNameHolder: 'Joao Souza',
     cardExpirationDate: '042024',
     cardVerificationCode: '268',
@@ -47,7 +47,7 @@ const transactionsData = [
     id: 5,
     value: 357.52,
     descriptions: 'Pneu aro 14 fire',
-    cardNumber: '222-121-331-261',
+    cardNumber: '2292-1221-3831-2621',
     cardNameHolder: 'Rogerio Marcos Soares',
     cardExpirationDate: '052028',
     cardVerificationCode: '148',
@@ -78,10 +78,11 @@ const createPayable = () => {
 
 createPayable();
 
-console.log(payableDate);
-
 async function main() {
   for (const transaction of transactionsData) {
+    const { cardNumber } = transaction;
+    const lastFour = cardNumber.slice(cardNumber.length - 4);
+    transaction.cardNumber = lastFour;
     await prisma.transaction.create({
       data: {
         value: transaction.value,
